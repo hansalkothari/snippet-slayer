@@ -1,0 +1,51 @@
+id,title,description,difficulty,category,tags
+1,Two Sum,Find two numbers that sum to a target.,Easy,Arrays,"hashmap,math"
+2,Reverse String,Reverse an input string.,Easy,Strings,recursion
+3,Valid Parentheses,Check if a string contains valid parentheses.,Easy,Stack,"stack,string"
+4,Merge Sorted Arrays,Merge two sorted arrays into one.,Easy,Arrays,"sorting,two pointers"
+5,Longest Substring Without Repeating Characters,Find the length of the longest substring without repeating characters.,Medium,Strings,"hashmap,sliding window"
+6,Implement strStr(),Find the index of the first occurrence of a substring.,Easy,Strings,string manipulation
+7,Valid Anagram,Check if two strings are anagrams.,Easy,Strings,"hashmap,sorting"
+8,Palindrome Number,Check if an integer is a palindrome.,Easy,Math,math
+9,Container With Most Water,Find two lines that hold the most water.,Medium,Arrays,two pointers
+10,3Sum,Find three numbers that add up to zero.,Medium,Arrays,"two pointers,sorting"
+11,Remove Duplicates from Sorted Array,Remove duplicates from a sorted array in-place.,Easy,Arrays,two pointers
+12,Rotate Array,Rotate an array to the right by k steps.,Medium,Arrays,array manipulation
+13,Best Time to Buy and Sell Stock,Find the max profit from a stock price array.,Easy,Arrays,dynamic programming
+14,Climbing Stairs,Count distinct ways to reach the top.,Easy,Dynamic Programming,"recursion,dynamic programming"
+15,Fibonacci Number,Find the nth Fibonacci number.,Easy,Math,"recursion,dynamic programming"
+16,Plus One,Add one to an array representation of an integer.,Easy,Arrays,math
+17,Power of Two,Check if a number is a power of two.,Easy,Math,bit manipulation
+18,Sum of Two Integers,Calculate sum without using `+` or `-`.,Medium,Bit Manipulation,bit manipulation
+19,Counting Bits,Count number of 1s in binary representation of numbers.,Medium,Bit Manipulation,bit manipulation
+20,Reverse Bits,Reverse the bits of a given 32-bit unsigned integer.,Easy,Bit Manipulation,bit manipulation
+21,Single Number,Find the number that appears once.,Easy,Bit Manipulation,bit manipulation
+22,Hamming Distance,Find the number of differing bits in two numbers.,Easy,Bit Manipulation,bit manipulation
+23,Valid Palindrome,Check if a string is a palindrome considering only alphanumeric characters.,Easy,Strings,two pointers
+24,Longest Common Prefix,Find the longest common prefix of an array of strings.,Easy,Strings,string manipulation
+25,Find the Index of First Occurrence in String,Return index of first occurrence of needle in haystack.,Easy,Strings,string manipulation
+26,Word Break,Determine if a string can be segmented into dictionary words.,Medium,Dynamic Programming,dynamic programming
+27,Generate Parentheses,Generate all combinations of valid parentheses.,Medium,Backtracking,backtracking
+28,Subsets,Find all subsets of a given set.,Medium,Backtracking,backtracking
+29,Permutations,Find all permutations of a given set.,Medium,Backtracking,backtracking
+30,Combinations,Find all combinations of given size k.,Medium,Backtracking,backtracking
+31,Maximum Subarray,Find the contiguous subarray with maximum sum.,Easy,Dynamic Programming,dynamic programming
+32,House Robber,Find the maximum amount that can be robbed without alerting the police.,Medium,Dynamic Programming,dynamic programming
+33,Coin Change,Find the minimum number of coins to make up a given amount.,Medium,Dynamic Programming,dynamic programming
+34,Product of Array Except Self,Find product of all numbers except self.,Medium,Arrays,prefix sum
+35,Find Peak Element,Find a peak element in an array.,Medium,Binary Search,binary search
+36,Search in Rotated Sorted Array,Search for a target in a rotated sorted array.,Medium,Binary Search,binary search
+37,Binary Search,Implement a binary search algorithm.,Easy,Binary Search,binary search
+38,Jump Game,Determine if you can reach the last index.,Medium,Greedy,greedy
+39,Gas Station,Find the starting gas station to complete a circular route.,Medium,Greedy,greedy
+40,Merge Intervals,Merge overlapping intervals.,Medium,Intervals,sorting
+41,Insert Interval,Insert a new interval into a sorted list of intervals.,Medium,Intervals,sorting
+42,Meeting Rooms,Determine if a person can attend all meetings.,Easy,Intervals,sorting
+43,Task Scheduler,Schedule tasks with cooldown constraints.,Medium,Greedy,greedy
+44,LRU Cache,Implement an LRU cache.,Medium,Design,"hashmap,linked list"
+45,Min Stack,"Design a stack that supports push, pop, top, and retrieving the minimum element in O(1).",Easy,Stack,stack
+46,Implement Queue using Stacks,Implement a queue using two stacks.,Easy,Stack,stack
+47,Binary Tree Inorder Traversal,Perform an inorder traversal of a binary tree.,Easy,Trees,"recursion,stack"
+48,Lowest Common Ancestor of BST,Find the lowest common ancestor of two nodes in a BST.,Medium,Trees,binary search tree
+49,Diameter of Binary Tree,Find the longest path between two nodes in a tree.,Easy,Trees,depth first search
+50,Validate Binary Search Tree,Determine if a tree is a valid BST.,Medium,Trees,binary search tree

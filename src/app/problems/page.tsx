@@ -1,70 +1,73 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 
 interface Problem {
   id: number;
   title: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  acceptance: string;
+  difficulty: string;
+  tags: string[];
   category: string;
-  status: 'Solved' | 'Attempted' | 'Todo';
+  description: string;
 }
 
-const problems: Problem[] = [
-  {
-    id: 1,
-    title: "Two Sum",
-    difficulty: "Easy",
-    acceptance: "48.5%",
-    category: "Array",
-    status: "Todo"
-  },
-  {
-    id: 2,
-    title: "Add Two Numbers",
-    difficulty: "Medium",
-    acceptance: "39.2%",
-    category: "Linked List",
-    status: "Todo"
-  },
-  {
-    id: 3,
-    title: "Longest Substring Without Repeating Characters",
-    difficulty: "Medium",
-    acceptance: "33.8%",
-    category: "String",
-    status: "Todo"
-  },
-  // Add more problems as needed
-];
-
 export default function Problems() {
+  const [problems, setProblems] = useState<Problem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [error, setError] = useState<string | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  useEffect(() => {
+    fetchProblems();
+  }, []);
+
+  async function fetchProblems() {
+    try {
+      setLoading(true);
+      const {data,error} = await supabase.from('Problems').select(`*`);
+      if( error ) throw error;
+      if( data ) console.log("data from the supabase ",data);
+
+      // Transform the data to match our Problem interface
+      const transformedProblems = data.map((problem: any) => ({
+        id: problem.id,
+        title: problem.title,
+        difficulty: problem.difficulty,
+        tags: problem.tags,
+        category: problem.category,
+        description: problem.description,
+      }));
+
+      setProblems(transformedProblems);
+    } catch (error) {
+      console.error('Error fetching problems:', error);
+      setError('Failed to load problems');
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const filteredProblems = problems.filter(problem => {
     const matchesSearch = problem.title.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesDifficulty = difficultyFilter === 'all' || problem.difficulty.toLowerCase() === difficultyFilter;
-    const matchesStatus = statusFilter === 'all' || problem.status.toLowerCase() === statusFilter;
-    const matchesCategory = categoryFilter === 'all' || problem.category.toLowerCase() === categoryFilter;
-    return matchesSearch && matchesDifficulty && matchesStatus && matchesCategory;
+    
   });
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Easy': return 'text-green-600';
-      case 'Medium': return 'text-yellow-600';
-      case 'Hard': return 'text-red-600';
-      default: return '';
-    }
-  };
 
   return (
-    <div className=" contaier mx-auto px-4 py-8 w-full justify-between">
-      <div className="mb-6 flex flex-col md:flex-row gap-4 w-full justify-between">
+    <div className="container mx-auto px-4 py-8">
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
+      <div className="contaier mx-auto px-4 py-8 w-full justify-between">
+        <div className="mb-6 flex flex-col md:flex-row gap-4 w-full justify-between">
         
           <input
             type="text"
@@ -107,63 +110,37 @@ export default function Problems() {
             <option value="linked-list">Linked List</option>
             <option value="string">String</option>
           </select>
-       
+      
+        </div>
       </div>
-
-      {/* Problems Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
-          <thead className="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Title
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Difficulty
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Acceptance
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                Category
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-            {filteredProblems.map((problem) => (
-              <tr key={problem.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                    ${problem.status === 'Solved' ? 'bg-green-100 text-green-800' :
-                    problem.status === 'Attempted' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'}`}>
-                    {problem.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                    {problem.id}. {problem.title}
-                  </div>
-                </td>
-                <td className="px-6 py-4">
-                  <span className={`${getDifficultyColor(problem.difficulty)} text-sm`}>
-                    {problem.difficulty}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                  {problem.acceptance}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
-                  {problem.category}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Title</TableHead>
+                <TableHead>Difficulty</TableHead>
+                <TableHead>Tags</TableHead>
+                <TableHead>Category</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {problems.map((problem) => (
+                <TableRow key={problem.id}>
+                  <TableCell>{problem.title}</TableCell>
+                  <TableCell>{problem.difficulty}</TableCell>
+                  <TableCell>{problem.tags}</TableCell>
+                  <TableCell>{problem.category}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
     </div>
   );
-} 
+}
